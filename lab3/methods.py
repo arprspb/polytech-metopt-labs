@@ -1,9 +1,9 @@
 # Метод дихтомии
 def dichotomy(target_func, a, b, eps):
     n_calls = 0
+    delta = eps * 1e-3  # малая величина дельта для 
     while abs(b - a) > eps:
         x = (a + b) / 2
-        delta = eps * 1e-3  # малая величина дельта для 
         
         fx_left = target_func(x - delta); n_calls += 1
         fx_right = target_func(x + delta); n_calls += 1

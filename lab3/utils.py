@@ -1,4 +1,5 @@
 from typing import Any
+from math import log, log2, ceil
 
 class PrintableFunction():
     def __init__(self, func, readable):
@@ -10,3 +11,12 @@ class PrintableFunction():
     
     def __call__(self, *args: Any, **kwds: Any) -> Any:
         return self.func(*args, **kwds)
+    
+
+def N_steps_dichotomy_analytical(a, b, eps):
+    return 2*ceil(log2((b-a)/eps))
+
+def N_steps_gr_analytical(a, b, eps):
+    phi = (1+5**0.5)/2
+    return ceil(log((b-a)/eps, phi)) + 2
+
