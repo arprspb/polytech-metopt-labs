@@ -1,6 +1,6 @@
 from typing import Any
 
-class my_funciton():
+class PrintableFunction():
     def __init__(self, func, readable):
         self.func = func
         self.readable = readable
