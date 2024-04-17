@@ -9,7 +9,7 @@ class Func():
     def __call__(self,*args):
         return self.f(*args)
     
-    def grad(self):
+    def grad(self, *args):
         return self.grad(*args)
         
 f = Func(lambda x: x[0]**2+x[1]**2, lambda x: (2*x[0], 2*x[1]))
