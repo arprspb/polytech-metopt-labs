@@ -33,10 +33,16 @@ def gradient_phi2(x, y, z):
 
 def gradient_phi3(x, y, z):
     grad = np.zeros(3)
-    if constraint3(x, y, z) > 0:
+    if 2*z - x - y > 0:
         grad[0] = -1
         grad[1] = -1
         grad[2] = 2
+
+    if 2*z - x - y < 0:
+        grad[0] = 1
+        grad[1] = 1
+        grad[2] = -2
+
     return grad
 
 
