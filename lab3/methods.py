@@ -2,7 +2,7 @@
 def dichotomy(target_func, a, b, eps):
     n_calls = 0
     delta = eps * 1e-3  # малая величина дельта для 
-    while abs(b - a) > eps:
+    while abs(b - a) >= eps:
         x = (a + b) / 2
         
         fx_left = target_func(x - delta); n_calls += 1
@@ -15,6 +15,7 @@ def dichotomy(target_func, a, b, eps):
     return a, b, n_calls
 
 
+
 # Метод золотого сечения
 def golden_ratio(target_func, a, b, eps):
     n_calls = 0
@@ -25,7 +26,7 @@ def golden_ratio(target_func, a, b, eps):
     fx1 = target_func(x1); n_calls += 1
     fx2 = target_func(x2); n_calls += 1
 
-    while abs(b - a) > eps:
+    while abs(b - a) >= eps:
         if fx1 < fx2:
             b = x2
             x2 = x1

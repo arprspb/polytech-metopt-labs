@@ -13,8 +13,9 @@ class PrintableFunction():
         return self.func(*args, **kwds)
     
 
-def N_steps_dichotomy_analytical(a, b, eps):
-    return 2*ceil(log2((b-a)/eps))
+def N_steps_dichotomy_analytical(a, b, eps, delta):
+    #return 2*ceil(log2((b-a)/eps))
+    return 2*ceil(log2((b-a-2*delta)/(eps-delta)))
 
 def N_steps_gr_analytical(a, b, eps):
     phi = (1+5**0.5)/2
