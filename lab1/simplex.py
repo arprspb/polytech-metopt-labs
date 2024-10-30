@@ -1,6 +1,13 @@
 import numpy as np
 
+def blends_rule_for_pivots(tableau):
+    for i in range(tableau.shape[0] - 1):
+        if tableau[i, -1] < 0:
+            return i
+
 def simplex_method(A, b, c, basis_indices, var_names_dict, minimize=True):
+    if not minimize:
+        c = -c
     var_names_reverse = {v: k for k, v in var_names_dict.items()}
     m, n = A.shape
 
@@ -26,25 +33,20 @@ def simplex_method(A, b, c, basis_indices, var_names_dict, minimize=True):
 
         print("\n".join(["\t".join(map("{:0.2f}".format, row)) for row in tableau]))
         
-        # Шаг 1: Поиск разрешающего столбца
-        if minimize:
-            pivot_col = np.argmax(np.maximum(tableau[-1, :-1], 0))
-            if tableau[-1, pivot_col] <= 0:
-                break  # Оптимальное решение найдено
-        else:
-            pivot_col = np.argmin(np.minimum(tableau[-1, :-1], 0))
-            if tableau[-1, pivot_col] >= 0:
-                break  # Оптимальное решение найдено
         
+        
+        pivot_col = np.argmax(np.maximum(tableau[-1, :-1], 0))
+        if tableau[-1, pivot_col] <= 0:
+            break  # Оптимальное решение найдено
+    
 
         # Шаг 2: Поиск разрешающей строки
+
         ratios = tableau[:-1, -1] / tableau[:-1, pivot_col]
-        if minimize:
-            ratios[ratios < 0] = np.inf
-            pivot_row = np.argmin(ratios)
-        else:
-            ratios[ratios > 0] = -1 * np.inf
-            pivot_row = np.argmax(ratios)
+
+        ratios[tableau[:-1, pivot_col] < 0] = np.inf
+        ratios[ratios < 0] = np.inf
+        pivot_row = np.argmin(ratios)
 
         basis_indices[pivot_row] = pivot_col
 
@@ -64,4 +66,6 @@ def simplex_method(A, b, c, basis_indices, var_names_dict, minimize=True):
 
     # Возвращаем оптимальное значение целевой функции с учетом знака
     optimal_value = tableau[-1, -1]
+    if not minimize:
+        optimal_value = -optimal_value
     return solution, optimal_value
