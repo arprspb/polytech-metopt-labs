@@ -1,6 +1,8 @@
 import numpy as np
 
-def simplex_method(A, b, c, basis_indices):
+def simplex_method(A, b, c, basis_indices, var_names_dict):
+
+    var_names_reverse = {v: k for k, v in var_names_dict.items()}
     # Обновляем количество переменных
     m, n = A.shape
 
@@ -55,46 +57,3 @@ def simplex_method(A, b, c, basis_indices):
 
 
 
-A = np.array([[-1, 6, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-              [-1, 4, 1, 0, 1, 0, 0, 0, 0, 0, 0],
-              [-1, 3, 2, 0, 0, 1, 0, 0, 0, 0, 0],
-              [-1, 2, 3, 0, 0, 0, 1, 0, 0, 0, 0],
-              [-1, 1, 4, 0, 0, 0, 0, 1, 0, 0, 0],
-              [-1, 0, 5, 0, 0, 0, 0, 0, 1, 0, 0],
-              [ 0, 3, 2, 0, 0, 0, 0, 0, 0, -1, 1]
-            ])
-
-
-b = np.array([400, 
-              400,
-              400,
-              400,
-              400,
-              400,
-              800
-              ])
-
-c = np.array([20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1e3])  # Большой коэффициент для u
-
-var_names_dict = {
-    "x1": 0,
-    "x2": 1,
-    "x3": 2,
-    "x4": 3,
-    "x5": 4,
-    "x6": 5,
-    "x7": 6,
-    "x8": 7,
-    "x9": 8,
-    "x10": 9,
-    "u1": 10
-}
-
-var_names_reverse = {v: k for k, v in var_names_dict.items()}
-
-basis_indices = list(map(var_names_dict.get, ["x4", "x5", "x6", "x7", "x8", "x9", "u1"]))
-
-solution, optimal_value = simplex_method(A, b, c, basis_indices)
-
-print("Решение:", solution)
-print("Оптимальное значение целевой функции:", optimal_value)
